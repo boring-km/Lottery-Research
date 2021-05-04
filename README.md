@@ -17,3 +17,6 @@
 - 로또 번호 기록을 조회할 REST API
 - 로또 번호를 저장할 MongoDB
 - 사용자별 생성한 로또 번호를 기억할 MariaDB - JPA
+
+### 한국 로또 6/45 데이터 제공
+- https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=회차번호
