@@ -7,7 +7,7 @@ import java.util.Set;
 @AllArgsConstructor
 public class CustomGenerator implements LottoGenerator {
 
-    private Set<Integer> customNumberSet;
+    private final Set<Integer> customNumberSet;
 
     @Override
     public Set<Integer> make() {
