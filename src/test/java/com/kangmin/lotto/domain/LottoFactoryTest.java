@@ -13,22 +13,16 @@ public class LottoFactoryTest {
 
     @Test
     public void 로또번호_랜덤생성_테스트() {
-        Set<Integer> lotto = LottoFactory.generate(new RandomGenerator());
-        lotto.forEach(number -> System.out.print(number + " "));
-
-        boolean isLotto = LottoValidation.check(lotto);
-
-        assertTrue(isLotto);
+        Lottery lotto = LottoFactory.generate(new RandomGenerator());
+        System.out.println(lotto);
+        assertNotNull(lotto);
     }
 
     @Test
     public void 로또번호_직접생성_테스트() {
-        Set<Integer> lotto = LottoFactory.generate(
+        Lottery lotto = LottoFactory.generate(
                 new CustomGenerator(Set.of(6, 32, 22, 15, 42, 24)));
-        lotto.forEach(number -> System.out.print(number + " "));
-
-        boolean isLotto = LottoValidation.check(lotto);
-
-        assertTrue(isLotto);
+        System.out.println(lotto);
+        assertNotNull(lotto);
     }
 }
