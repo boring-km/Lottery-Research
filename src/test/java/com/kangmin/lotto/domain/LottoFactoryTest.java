@@ -21,7 +21,7 @@ public class LottoFactoryTest {
     @Test
     public void 로또번호_직접생성_테스트() {
         Lottery lotto = LottoFactory.generate(
-                new CustomGenerator(Set.of(6, 32, 22, 15, 42, 24)));
+                new CustomGenerator(new int[]{6, 32, 22, 15, 42, 24}));
         System.out.println(lotto);
         assertNotNull(lotto);
     }

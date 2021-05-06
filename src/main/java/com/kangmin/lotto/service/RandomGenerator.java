@@ -1,8 +1,11 @@
 package com.kangmin.lotto.service;
 
+import org.springframework.stereotype.Service;
+
 import java.util.HashSet;
 import java.util.Set;
 
+@Service
 public class RandomGenerator implements LottoGenerator {
 
     @Override
