@@ -8,20 +8,20 @@ import java.util.Set;
 
 @RequiredArgsConstructor
 public class Lottery {
-    private final Set<Integer> lottoSet;
+    private final Set<Integer> lotterySet;
     private static final int SIZE = 6;
 
     @Override
     public String toString() {
-        return "Lottery{" + lottoSet + '}';
+        return "Lottery{" + lotterySet + '}';
     }
 
     public int[] getSortedNumbers() {
-        ArrayList<Integer> lottoList = new ArrayList<>(lottoSet);
-        Collections.sort(lottoList);
+        ArrayList<Integer> lottery = new ArrayList<>(lotterySet);
+        Collections.sort(lottery);
         int[] result = new int[SIZE];
         for (int i = 0; i < SIZE; i++) {
-            result[i] = lottoList.get(i);
+            result[i] = lottery.get(i);
         }
         return result;
     }
