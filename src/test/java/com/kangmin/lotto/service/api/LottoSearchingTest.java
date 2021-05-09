@@ -1,6 +1,5 @@
 package com.kangmin.lotto.service.api;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.kangmin.lotto.domain.LottoRecord;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -10,14 +9,15 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertNotEquals;
+import static org.junit.Assert.assertNotNull;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class LottoInfoSearchingTest {
+public class LottoSearchingTest {
 
     @Autowired
-    private LottoInfoSearching lottoInfoSearching;
+    private LottoSearching lottoSearching;
 
     @Test
     public void 로또_최신회_번호를_호출하면_0이_아니다() {
@@ -25,7 +25,7 @@ public class LottoInfoSearchingTest {
         int actual = 0;
 
         try {
-            actual = lottoInfoSearching.getRecentRound();
+            actual = lottoSearching.getRecentRound();
             System.out.println(actual);
         } catch (IOException e) {
             e.printStackTrace();
@@ -35,10 +35,10 @@ public class LottoInfoSearchingTest {
     }
 
     @Test
-    public void 로또_234회의_결과를_받아오면_null이_아니다() throws JsonProcessingException {
+    public void 로또_234회의_결과를_받아오면_null이_아니다() {
         int round = 234;
 
-        LottoRecord record = lottoInfoSearching.getLottoByRound(round);
+        LottoRecord record = lottoSearching.getLottoByRound(round);
         System.out.println(record);
 
         assertNotNull(record);

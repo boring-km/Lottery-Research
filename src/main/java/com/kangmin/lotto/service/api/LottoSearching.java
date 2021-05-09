@@ -12,14 +12,14 @@ import javax.annotation.Resource;
 import java.io.IOException;
 
 @Service
-public class LottoInfoSearching {
+public class LottoSearching {
 
     @Resource
     private WebClient webClient;
 
     private static final String BASE_URL = "https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=";
 
-    public LottoRecord getLottoByRound(int round) throws JsonProcessingException {
+    public LottoRecord getLottoByRound(int round) {
         String uri = BASE_URL + round;
         String result = webClient.mutate()
                 .build()
@@ -29,7 +29,13 @@ public class LottoInfoSearching {
                 .bodyToMono(String.class)
                 .block();
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(result, LottoRecord.class);
+        LottoRecord lottoRecord = LottoRecord.builder().build();
+        try {
+            lottoRecord = mapper.readValue(result, LottoRecord.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+        return lottoRecord;
     }
 
     public int getRecentRound() throws IOException {
