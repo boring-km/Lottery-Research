@@ -19,10 +19,20 @@ repositories {
 }
 
 dependencies {
+    // Web
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'junit:junit:4.13.1'
+    implementation 'org.springframework.boot:spring-boot-starter-webflux'
+    implementation 'org.jsoup:jsoup:1.13.1'
+
+    // DB
+    implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
+
+    /// Lombok
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
+
+    // Test
+    implementation 'junit:junit:4.13.1'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 

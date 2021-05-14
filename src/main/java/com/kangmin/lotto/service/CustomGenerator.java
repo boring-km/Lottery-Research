@@ -2,15 +2,19 @@ package com.kangmin.lotto.service;
 
 import lombok.AllArgsConstructor;
 
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 
 @AllArgsConstructor
 public class CustomGenerator implements LottoGenerator {
 
-    private Set<Integer> customNumberSet;
+    private final int[] customNumberSet;
 
     @Override
     public Set<Integer> make() {
-        return customNumberSet;
+        HashSet<Integer> result = new HashSet<>();
+        Arrays.stream(customNumberSet).forEach(result::add);
+        return result;
     }
 }
