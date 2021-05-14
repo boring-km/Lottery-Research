@@ -10,6 +10,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 
 import javax.annotation.Resource;
 import java.io.IOException;
+import java.util.ArrayList;
 
 @Service
 public class LottoSearching {
@@ -36,6 +37,19 @@ public class LottoSearching {
             e.printStackTrace();
         }
         return lottoRecord;
+    }
+
+    public ArrayList<LottoRecord> getAllRecords() {
+        ArrayList<LottoRecord> resultList = new ArrayList<>();
+        try {
+            int finalRound = getRecentRound();
+            for (int round = 1; round <= finalRound; round++) {
+                resultList.add(getLottoByRound(round));
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return resultList;
     }
 
     public int getRecentRound() throws IOException {

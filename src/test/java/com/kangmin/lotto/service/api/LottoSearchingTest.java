@@ -8,6 +8,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.io.IOException;
+import java.util.List;
 
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
@@ -42,5 +43,14 @@ public class LottoSearchingTest {
         System.out.println(record);
 
         assertNotNull(record);
+    }
+
+    @Test
+    public void 최근회차까지의_모든_로또_정보를_받아오면_null이_아니다() {
+        List<LottoRecord> resultList = lottoSearching.getAllRecords();
+        for (LottoRecord lotto : resultList) {
+            System.out.println(lotto);
+        }
+        assertNotNull(resultList);
     }
 }
