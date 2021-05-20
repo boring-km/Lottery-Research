@@ -8,7 +8,7 @@
     <p/>
     <div>
       <h3>{{ roundTitle }}</h3>
-      <div v-if="result">
+      <div v-if="result && result.returnValue === 'success'">
         <p>발표일: {{ result.drwNoDate }}</p>
         <p>총 상금: {{ result.totSellamnt }} 원</p>
         <p>1등 상금액: {{ result.firstWinamnt }} 원</p>
@@ -16,6 +16,9 @@
         <p>로또 번호: {{ result.drwtNo1 }} {{ result.drwtNo2 }} {{ result.drwtNo3 }}
           {{ result.drwtNo4 }} {{ result.drwtNo5 }} {{ result.drwtNo6 }}</p>
         <p>보너스 번호: {{ result.bnusNo }}</p>
+      </div>
+      <div v-else>
+        <p>{{ result }}</p>
       </div>
     </div>
   </div>
