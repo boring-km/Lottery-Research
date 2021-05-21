@@ -21,6 +21,13 @@
         <p>{{ roundResult }}</p>
       </div>
     </div>
+    <p/>
+    <div>
+      <h3>로또 번호 랜덤 생성</h3>
+      <button v-on:click="generateRandom">랜덤 생성</button>
+      <p v-if="randomResult && randomResult.sortedNumbers">랜덤 생성 결과: {{ randomResult.sortedNumbers }}</p>
+      <p v-else>{{ randomResult }}</p>
+    </div>
   </div>
 </template>
 
@@ -31,15 +38,20 @@ export default {
     return {
       round: '',
       roundTitle: '',
-      roundResult: null
+      roundResult: null,
+      randomResult: null,
+      URL: process.env.VUE_APP_BACK_URL
     }
   },
   methods: {
     async onSubmitForm(e) {
       e.preventDefault();
+      console.log(process.env);
       let tempResult = null;
       this.roundTitle = this.round + "회차";
-      await this.axios.get(`http://localhost:8080/lotto/search/${this.round}`)
+      this.roundResult = "조회 중입니다.";
+
+      await this.axios.get(`${this.URL}/lotto/search/${this.round}`)
           .then(response => {
             tempResult = response.data
           })
@@ -53,6 +65,16 @@ export default {
       } else {
         this.roundResult = "통신 에러입니다.";
       }
+    },
+    generateRandom() {
+      this.axios.get(`${this.URL}/lotto/random`)
+      .then(response => {
+        this.randomResult = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+        this.randomResult = "랜덤생성 에러";
+      });
     }
   },
   props: {
