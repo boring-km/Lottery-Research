@@ -5,7 +5,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -30,6 +32,28 @@ public class MongoDAO {
 
     public List<LottoRecord> getAllRecords() {
         return mongoTemplate.findAll(LottoRecord.class);
+    }
+
+    public Map<Integer, Integer> getNumbersCount() {
+        List<LottoRecord> all = getAllRecords();
+        Map<Integer, Integer> result = new HashMap<>();
+
+        all.forEach(lottoRecord -> addCountInMap(result, new int[]{
+                lottoRecord.getDrwtNo1(),
+                lottoRecord.getDrwtNo2(),
+                lottoRecord.getDrwtNo3(),
+                lottoRecord.getDrwtNo4(),
+                lottoRecord.getDrwtNo5(),
+                lottoRecord.getDrwtNo6(),
+                lottoRecord.getBnusNo()}));
+
+        return result;
+    }
+
+    private void addCountInMap(Map<Integer, Integer> map, int[] values) {
+        for (int value : values) {
+            map.put(value, map.getOrDefault(value, 0) + 1);
+        }
     }
 
 }
