@@ -49,4 +49,12 @@ public class MongoDAOTest {
 
         assertTrue(120 <= minimum && maximum < 180);
     }
+
+    @Test
+    public void 회차별로_로또번호_합의_평균을_구하면_150이상_170미만이다() {
+        int result = mongoDAO.getAverageSumByRound();
+        System.out.println(result);
+
+        assertTrue(150 <= result && result < 170);
+    }
 }

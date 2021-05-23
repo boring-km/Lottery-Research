@@ -17,7 +17,7 @@ public class MongoDAO {
     public void saveAll(List<LottoRecord> lottoRecordList) {
         List<LottoRecord> allRecords = getAllRecords();
         int n = allRecords.size();
-        boolean[] roundNumbers = new boolean[n +1];
+        boolean[] roundNumbers = new boolean[n + 1];
         allRecords.forEach(record -> roundNumbers[record.getDrwNo()] = true);   // 이미 값이 있는 회차는 true
         lottoRecordList.forEach(lottoRecord -> {
             if (roundNumbers.length < n + 1 || n == 0) {    // 저장된 회차가 없으면 save
@@ -56,4 +56,19 @@ public class MongoDAO {
         }
     }
 
+    public int getAverageSumByRound() {
+        List<LottoRecord> all = getAllRecords();
+        int result = 0;
+        for (LottoRecord lottoRecord : all) {
+            int sum = lottoRecord.getDrwtNo1() +
+                    lottoRecord.getDrwtNo2() +
+                    lottoRecord.getDrwtNo3() +
+                    lottoRecord.getDrwtNo4() +
+                    lottoRecord.getDrwtNo5() +
+                    lottoRecord.getDrwtNo6() +
+                    lottoRecord.getBnusNo();
+            result += sum;
+        }
+        return result / all.size();
+    }
 }
