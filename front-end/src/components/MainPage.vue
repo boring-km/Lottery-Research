@@ -24,8 +24,13 @@
     <p/>
     <div>
       <h3>로또 번호 랜덤 생성</h3>
+      {{ getAverageSum() }}
       <button v-on:click="generateRandom">랜덤 생성</button>
-      <p v-if="randomResult && randomResult.sortedNumbers">랜덤 생성 결과: {{ randomResult.sortedNumbers }}</p>
+      <div v-if="randomResult && randomResult.sortedNumbers">
+        <p>랜덤 생성 결과: {{ randomResult.sortedNumbers }}</p>
+        <p>생성된 번호 합: {{ randomResult.sumOfNumbers }}</p>
+        <p>회차별 번호들의 평균 합: {{ averageSum }}</p>
+      </div>
       <p v-else>{{ randomResult }}</p>
     </div>
   </div>
@@ -40,6 +45,7 @@ export default {
       roundTitle: '',
       roundResult: null,
       randomResult: null,
+      averageSum: '',
       URL: process.env.VUE_APP_BACK_URL
     }
   },
@@ -75,6 +81,12 @@ export default {
         console.log(error);
         this.randomResult = "랜덤생성 에러";
       });
+    },
+    getAverageSum() {
+      this.axios.get(`${this.URL}/lotto/average`)
+      .then(response => {
+        this.averageSum = response.data;
+      })
     }
   },
   props: {
