@@ -41,21 +41,23 @@ public class LottoSearching {
 
     public ArrayList<LottoRecord> getAllRecords() {
         ArrayList<LottoRecord> resultList = new ArrayList<>();
-        try {
-            int finalRound = getRecentRound();
-            for (int round = 1; round <= finalRound; round++) {
-                resultList.add(getLottoByRound(round));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        int finalRound = getRecentRound();
+        for (int round = 1; round <= finalRound; round++) {
+            resultList.add(getLottoByRound(round));
         }
         return resultList;
     }
 
-    public int getRecentRound() throws IOException {
-        String url = "https://dhlottery.co.kr/gameResult.do?method=byWin";
-        Element document = Jsoup.connect(url).get().body();
-        String target = document.getElementsByClass("win_result").get(0).getElementsByTag("strong").get(0).text();
-        return Integer.parseInt(target.substring(0, target.length()-1));
+    public int getRecentRound() {
+        int result = 0;
+        try {
+            String url = "https://dhlottery.co.kr/gameResult.do?method=byWin";
+            Element document = Jsoup.connect(url).get().body();
+            String target = document.getElementsByClass("win_result").get(0).getElementsByTag("strong").get(0).text();
+            result = Integer.parseInt(target.substring(0, target.length()-1));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return result;
     }
 }
