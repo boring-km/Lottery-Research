@@ -1,6 +1,7 @@
 package com.kangmin.lotto.service.dao;
 
 import com.kangmin.lotto.domain.LottoRecord;
+import com.kangmin.lotto.domain.LottoSum;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Service;
@@ -56,9 +57,11 @@ public class MongoDAO {
         }
     }
 
-    public int getAverageSumByRound() {
+    public LottoSum getSumByRound() {
         List<LottoRecord> all = getAllRecords();
-        int result = 0;
+        int sumResult = 0;
+        int minimum = 255;
+        int maximum = 21;
         for (LottoRecord lottoRecord : all) {
             int sum = lottoRecord.getDrwtNo1() +
                     lottoRecord.getDrwtNo2() +
@@ -67,8 +70,13 @@ public class MongoDAO {
                     lottoRecord.getDrwtNo5() +
                     lottoRecord.getDrwtNo6() +
                     lottoRecord.getBnusNo();
-            result += sum;
+            minimum = Math.min(minimum, sum);
+            maximum = Math.max(maximum, sum);
+            sumResult += sum;
         }
-        return result / all.size();
+        return LottoSum.builder()
+                .minimum(minimum)
+                .average(sumResult / all.size())
+                .maximum(maximum).build();
     }
 }

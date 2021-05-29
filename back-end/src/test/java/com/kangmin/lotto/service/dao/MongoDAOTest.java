@@ -11,7 +11,8 @@ import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -52,7 +53,8 @@ public class MongoDAOTest {
 
     @Test
     public void 회차별로_로또번호_합의_평균을_구하면_150이상_170미만이다() {
-        int result = mongoDAO.getAverageSumByRound();
+        int result = mongoDAO.getSumByRound().getAverage();
+
         System.out.println(result);
 
         assertTrue(150 <= result && result < 170);

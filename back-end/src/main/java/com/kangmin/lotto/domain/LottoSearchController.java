@@ -25,7 +25,7 @@ public class LottoSearchController {
     }
 
     @GetMapping("/lotto/average")
-    public int getAverageSumByRound() {
-        return mongoDAO.getAverageSumByRound();
+    public LottoSum getAverageSumByRound() {
+        return mongoDAO.getSumByRound();
     }
 }
