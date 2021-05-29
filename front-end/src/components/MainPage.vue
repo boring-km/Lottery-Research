@@ -33,7 +33,7 @@
         <p>랜덤 생성 결과: {{ randomResult.sortedNumbers }}</p>
         <p>생성된 번호 합: {{ randomResult.sumOfNumbers }}</p>
         <hr width="10%">
-        <p>과거 기록에서 번호들의 합</p>
+        <p>과거 기록에서 번호들의 합 (보너스 번호 제외)</p>
         <p>최소 &lt; 평균  &lt; 최대</p>
         <p>{{ lottoSum.minimum }} &lt; {{ lottoSum.average }} &lt; {{ lottoSum.maximum }}</p>
       </div>
