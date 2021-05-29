@@ -23,4 +23,7 @@ public class LottoRecord implements Serializable {
     private final int drwtNo6;
     private final int bnusNo;
 
+    public int getSum() {
+        return drwtNo1 + drwtNo2 + drwtNo3 + drwtNo4 + drwtNo5 + drwtNo6;
+    }
 }

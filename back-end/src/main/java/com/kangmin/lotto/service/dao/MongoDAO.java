@@ -63,13 +63,7 @@ public class MongoDAO {
         int minimum = 255;
         int maximum = 21;
         for (LottoRecord lottoRecord : all) {
-            int sum = lottoRecord.getDrwtNo1() +
-                    lottoRecord.getDrwtNo2() +
-                    lottoRecord.getDrwtNo3() +
-                    lottoRecord.getDrwtNo4() +
-                    lottoRecord.getDrwtNo5() +
-                    lottoRecord.getDrwtNo6() +
-                    lottoRecord.getBnusNo();
+            int sum = lottoRecord.getSum();
             minimum = Math.min(minimum, sum);
             maximum = Math.max(maximum, sum);
             sumResult += sum;
