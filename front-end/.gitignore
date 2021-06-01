@@ -2,6 +2,7 @@
 node_modules
 /dist
 package-lock.json
+front-end.iml
 
 # local env files
 .env.local

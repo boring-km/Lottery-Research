@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.Arrays;
 
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 public class LotteryTest {
 
@@ -17,5 +18,15 @@ public class LotteryTest {
         System.out.println(Arrays.toString(result));
 
         assertNotNull(result);
+    }
+
+    @Test
+    public void Lottery_객체_내부의_번호들의_합은_21에서_255사이이다() {
+        Lottery lottery = LottoFactory.generate(new RandomGenerator());
+
+        int sum = lottery.getSumOfNumbers();
+        System.out.println(sum);
+
+        assertTrue(21 <= sum && sum <= 255);
     }
 }

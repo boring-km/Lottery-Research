@@ -25,12 +25,8 @@ public class LottoSearchingTest {
         int unexpected = 0;
         int actual = 0;
 
-        try {
-            actual = lottoSearching.getRecentRound();
-            System.out.println(actual);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        actual = lottoSearching.getRecentRound();
+        System.out.println(actual);
 
         assertNotEquals(unexpected, actual);
     }
