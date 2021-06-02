@@ -24,6 +24,9 @@ dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-webflux'
     implementation 'org.jsoup:jsoup:1.13.1'
 
+    // Authentication
+    implementation 'io.jsonwebtoken:jjwt-api:0.11.2'
+
     // DB
     implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
 
