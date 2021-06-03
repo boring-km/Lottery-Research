@@ -25,4 +25,12 @@ public class Lottery {
         }
         return result;
     }
+
+    public int getSumOfNumbers() {
+        int result = 0;
+        for (int number : lotterySet) {
+            result += number;
+        }
+        return result;
+    }
 }
