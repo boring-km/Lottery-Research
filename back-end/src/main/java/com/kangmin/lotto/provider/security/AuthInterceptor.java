@@ -1,7 +1,6 @@
-package com.kangmin.lotto.security;
+package com.kangmin.lotto.provider.security;
 
-import org.springframework.web.servlet.HandlerInterceptor;
-
+import com.kangmin.lotto.security.Role;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -21,8 +20,7 @@ public class AuthInterceptor implements HandlerInterceptor {
     private static final String AUTHORIZATION_HEADER = "x-auth-token";
 
     @Override
-    public boolean preHandle(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Object handler)
-            throws Exception {
+    public boolean preHandle(HttpServletRequest servletRequest, HttpServletResponse servletResponse, Object handler) {
 
         log.info("preHandle!!");
 
@@ -34,10 +32,10 @@ public class AuthInterceptor implements HandlerInterceptor {
                 return true;
             }
             else {
-                throw new CustomAuthenticationException();
+                throw new RuntimeException();
             }
         } else {
-            throw new CustomAuthenticationException();
+            throw new RuntimeException();
         }
     }
 

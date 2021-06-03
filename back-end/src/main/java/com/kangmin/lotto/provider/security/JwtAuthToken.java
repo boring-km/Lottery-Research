@@ -1,5 +1,6 @@
-package com.kangmin.lotto.security;
+package com.kangmin.lotto.provider.security;
 
+import com.kangmin.lotto.security.AuthToken;
 import io.jsonwebtoken.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,10 @@ public class JwtAuthToken implements AuthToken<Claims> {
 
     JwtAuthToken(String id, String role, Date expiredDate, Key key) {
         this.key = key;
-        this.token = createJwtAuthToken(id, role, expiredDate).get();
+        Optional<String> stringOptional = createJwtAuthToken(id, role, expiredDate);
+        if (stringOptional.isPresent())
+            this.token = stringOptional.get();
+        else throw new RuntimeException();
     }
 
     @Override

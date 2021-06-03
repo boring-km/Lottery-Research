@@ -1,5 +1,6 @@
-package com.kangmin.lotto.security;
+package com.kangmin.lotto.provider.security;
 
+import com.kangmin.lotto.security.AuthTokenProvider;
 import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
 
@@ -7,7 +8,7 @@ import java.security.Key;
 import java.util.Date;
 
 @Slf4j
-public class JwtAuthTokenProvider implements AuthTokenProvider<JwtAuthToken>{
+public class JwtAuthTokenProvider implements AuthTokenProvider<JwtAuthToken> {
 
     private final Key key;
 

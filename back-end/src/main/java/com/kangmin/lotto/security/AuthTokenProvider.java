@@ -1,4 +1,4 @@
-package com.kangmin.lotto.provider.security;
+package com.kangmin.lotto.security;
 
 import java.util.Date;
 
