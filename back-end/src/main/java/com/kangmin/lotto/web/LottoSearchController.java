@@ -1,5 +1,7 @@
-package com.kangmin.lotto.domain;
+package com.kangmin.lotto.web;
 
+import com.kangmin.lotto.domain.LottoRecord;
+import com.kangmin.lotto.domain.LottoSum;
 import com.kangmin.lotto.service.api.LottoSearching;
 import com.kangmin.lotto.service.dao.MongoDAO;
 import lombok.RequiredArgsConstructor;

@@ -1,5 +1,7 @@
-package com.kangmin.lotto.domain;
+package com.kangmin.lotto.web;
 
+import com.kangmin.lotto.domain.Lottery;
+import com.kangmin.lotto.domain.LottoFactory;
 import com.kangmin.lotto.service.CustomGenerator;
 import com.kangmin.lotto.service.RandomGenerator;
 import lombok.RequiredArgsConstructor;
