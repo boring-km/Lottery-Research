@@ -1,15 +1,18 @@
 <template>
   <div id="app">
-    <MainPage msg="Lottery MainPage"/>
+    <Header/>
+    <MainPage/>
   </div>
 </template>
 
 <script>
-import MainPage from './components/MainPage.vue'
+import Header from './components/Header'
+import MainPage from './components/MainPage'
 
 export default {
   name: 'App',
   components: {
+    Header,
     MainPage
   }
 }
@@ -23,5 +26,9 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+html {
+  background: #222222;
 }
 </style>
