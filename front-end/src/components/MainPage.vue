@@ -1,5 +1,6 @@
 <template>
   <div id="root">
+    <h1>{{ msg }}</h1>
     <div>
       <h3>과거 로또 번호 조회</h3>
       <input type="text" placeholder="회차번호 입력" v-model="round">
@@ -111,11 +112,5 @@ export default {
 </script>
 
 <style scoped>
-h3 {
-  color: gold;
-}
 
-p {
-  color: white;
-}
 </style>
