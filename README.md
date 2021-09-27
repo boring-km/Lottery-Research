@@ -22,5 +22,8 @@
 - 서버 Framework: Vue.js 2.6.11
 - node 14.16.0
 
+### React 추가 (react-front-end)
+- React, TypeScript로 기존의 Vue.js 서버와 동일하게 만들어보고, 완성이 되면 교체하기
+
 ### 한국 로또 6/45 데이터 제공
 - https://www.dhlottery.co.kr/common.do?method=getLottoNumber&drwNo=회차번호
