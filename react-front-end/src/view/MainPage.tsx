@@ -1,4 +1,4 @@
-import axios, {AxiosResponse} from "axios";
+import axios from "axios";
 import {useCallback, useEffect, useState} from "react";
 import RandomResult from "../data/RandomResult";
 
@@ -13,12 +13,11 @@ function MainPage() {
   const URL = process.env.REACT_APP_BACK_URL;
 
   useEffect(() => {
-    const setAverageSum = () => {
-      axios.get(`${URL}/lotto/average`)
-        .then(response => {
-          setLottoSum(response.data);
-        });
+    const setAverageSum = async () => {
+      const result = await axios.get(`${URL}/lotto/average`);
+      setLottoSum(result.data);
     }
+    // noinspection JSIgnoredPromiseFromCall
     setAverageSum();
   }, [URL]);
 
@@ -36,11 +35,9 @@ function MainPage() {
     setRoundTitle(curRound + "회차");
     setRoundResult("조회 중입니다.");
 
-    await axios.get(`${URL}/lotto/search/${curRound}`)
-      .then(response => {
-        tempResult = response.data
-      })
-      .catch(err => console.log(err));
+    const result = await axios.get(`${URL}/lotto/search/${curRound}`)
+    tempResult = result.data;
+
     if (tempResult && tempResult.returnValue === "success") {
       tempResult.totSellamnt = Number(tempResult.totSellamnt).toLocaleString('en').split(".")[0];
       tempResult.firstWinamnt = Number(tempResult.firstWinamnt).toLocaleString('en').split(".")[0];
@@ -53,7 +50,7 @@ function MainPage() {
   }
 
   const recentRoundSearch = async () => {
-    const result: AxiosResponse = await axios.get(`${URL}/lotto/recent`);
+    const result = await axios.get(`${URL}/lotto/recent`);
     const round = result.data;
     setRound(round);
     await searchRecord(round);
@@ -77,14 +74,13 @@ function MainPage() {
   }
 
   const generateRandom = async () => {
-    await axios.get(`${URL}/lotto/random`)
-      .then(response => {
-        setRandomResult(response.data);
-      })
-      .catch(error => {
-        console.log(error);
-        setRandomResult("랜덤생성 에러");
-      });
+    const result = await axios.get(`${URL}/lotto/random`);
+    if (result.status === 200) {
+      setRandomResult(result.data);
+    } else {
+      console.log(result.statusText);
+      setRandomResult("랜덤생성 에러");
+    }
   }
 
   const RandomResultComponent = () => {
