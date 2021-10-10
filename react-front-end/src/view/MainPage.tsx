@@ -1,42 +1,38 @@
-import axios from "axios";
 import {useCallback, useEffect, useState} from "react";
+import {getLottoAverageSum, getRandomLottoNumber, searchLottoByRound, searchRecentRound} from "../api/lottery_api";
 import RandomResult from "../data/RandomResult";
+import RoundResult from "../data/RoundResult";
+import LottoSum from "../data/LottoSum";
 
-function MainPage() {
+const MainPage = () => {
 
   const [roundTitle, setRoundTitle] = useState("");
-  const [round, setRound] = useState();
-  const [roundResult, setRoundResult]: [any, any] = useState();
-  const [randomResult, setRandomResult]: [any, any] = useState();
-  const [lottoSum, setLottoSum]: [any, any] = useState();
-  
-  const URL = process.env.REACT_APP_BACK_URL;
+  const [round, setRound]: [string, any] = useState("");
+  const [roundResult, setRoundResult]: [(RoundResult | undefined), any] = useState<RoundResult>();
+  const [randomResult, setRandomResult]: [(RandomResult | undefined), any] = useState<RandomResult>();
+  const [lottoSum, setLottoSum]: [(LottoSum | any), any] = useState<LottoSum>();
 
   useEffect(() => {
-    const setAverageSum = async () => {
-      const result = await axios.get(`${URL}/lotto/average`);
-      setLottoSum(result.data);
-    }
-    // noinspection JSIgnoredPromiseFromCall
-    setAverageSum();
-  }, [URL]);
+    getLottoAverageSum().then(result => setLottoSum(result));
+  }, []);
 
-  const onChange = useCallback(e => {
-    setRound(e.target.value);
-  },[]);
+  const recentRoundSearch = async () => {
+    const round = await searchRecentRound();
+    await searchRecord(round);
+  }
 
+  const generateRandom = async () => {
+    const result = await getRandomLottoNumber();
+    setRandomResult(result);
+  }
 
-  const searchRecord = async (tempRound: any) => {
-    let curRound = round;
-    if (tempRound != null)
-      curRound = tempRound;
-    console.log(process.env, curRound);
-    let tempResult: any;
+  const searchRecord = async (tempRound: string) => {
+    setRound(tempRound);
+    const curRound = tempRound != null ? tempRound : round;
     setRoundTitle(curRound + "회차");
     setRoundResult("조회 중입니다.");
 
-    const result = await axios.get(`${URL}/lotto/search/${curRound}`)
-    tempResult = result.data;
+    const tempResult: (RoundResult | any) = await searchLottoByRound(curRound);
 
     if (tempResult && tempResult.returnValue === "success") {
       tempResult.totSellamnt = Number(tempResult.totSellamnt).toLocaleString('en').split(".")[0];
@@ -49,12 +45,9 @@ function MainPage() {
     }
   }
 
-  const recentRoundSearch = async () => {
-    const result = await axios.get(`${URL}/lotto/recent`);
-    const round = result.data;
-    setRound(round);
-    await searchRecord(round);
-  }
+  const onChange = useCallback(e => {
+    setRound(e.target.value);
+  },[]);
 
   const RoundResultComponent = () => {
     if (roundResult && roundResult.returnValue === "success") {
@@ -71,16 +64,6 @@ function MainPage() {
       );
     }
     return ( <div> <p>{ roundResult }</p> </div> );
-  }
-
-  const generateRandom = async () => {
-    const result = await axios.get(`${URL}/lotto/random`);
-    if (result.status === 200) {
-      setRandomResult(result.data);
-    } else {
-      console.log(result.statusText);
-      setRandomResult("랜덤생성 에러");
-    }
   }
 
   const RandomResultComponent = () => {
@@ -121,4 +104,5 @@ function MainPage() {
     </div>
   );
 }
+
 export default MainPage;
