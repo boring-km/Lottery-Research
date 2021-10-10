@@ -16,4 +16,9 @@ interface RoundResult {
   bnusNo: number;
 }
 
+export const getNumbers = (result: RoundResult) => {
+  return result.drwtNo1 + ", " + result.drwtNo2 + ", " + result.drwtNo3 + ", " + result.drwtNo4 + ", " +
+    result.drwtNo5 + ", " + result.drwtNo6;
+}
+
 export default RoundResult;

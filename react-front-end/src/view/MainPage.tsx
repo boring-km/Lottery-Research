@@ -1,7 +1,7 @@
 import {useCallback, useEffect, useState} from "react";
 import {getLottoAverageSum, getRandomLottoNumber, searchLottoByRound, searchRecentRound} from "../api/lottery_api";
 import RandomResult from "../data/RandomResult";
-import RoundResult from "../data/RoundResult";
+import RoundResult, {getNumbers} from "../data/RoundResult";
 import LottoSum from "../data/LottoSum";
 
 const MainPage = () => {
@@ -32,17 +32,8 @@ const MainPage = () => {
     setRoundTitle(curRound + "회차");
     setRoundResult("조회 중입니다.");
 
-    const tempResult: (RoundResult | any) = await searchLottoByRound(curRound);
-
-    if (tempResult && tempResult.returnValue === "success") {
-      tempResult.totSellamnt = Number(tempResult.totSellamnt).toLocaleString('en').split(".")[0];
-      tempResult.firstWinamnt = Number(tempResult.firstWinamnt).toLocaleString('en').split(".")[0];
-      setRoundResult(tempResult);
-    } else if (tempResult && tempResult.returnValue === "fail") {
-      setRoundResult("없는 회차번호입니다.");
-    } else {
-      setRoundResult("통신 에러입니다.");
-    }
+    const result = await searchLottoByRound(curRound);
+    setRoundResult(result);
   }
 
   const onChange = useCallback(e => {
@@ -57,8 +48,7 @@ const MainPage = () => {
           <p>총 상금: { roundResult.totSellamnt } 원</p>
           <p>1등 상금액: { roundResult.firstWinamnt } 원</p>
           <p>1등 당첨인원 수: { roundResult.firstPrzwnerCo } 명</p>
-          <p>로또 번호: { roundResult.drwtNo1 } { roundResult.drwtNo2 } { roundResult.drwtNo3 }
-            { roundResult.drwtNo4 } { roundResult.drwtNo5 } { roundResult.drwtNo6 }</p>
+          <p>로또 번호: { getNumbers(roundResult) }</p>
           <p>보너스 번호: { roundResult.bnusNo }</p>
         </div>
       );
@@ -68,11 +58,10 @@ const MainPage = () => {
 
   const RandomResultComponent = () => {
     if (randomResult && randomResult.sortedNumbers) {
-      const result: RandomResult = randomResult;
       return (
         <div>
-          <p>랜덤 생성 결과: { result.sortedNumbers.toLocaleString() }</p>
-          <p>생성된 번호 합: { result.sumOfNumbers }</p>
+          <p>랜덤 생성 결과: { randomResult.sortedNumbers.toLocaleString() }</p>
+          <p>생성된 번호 합: { randomResult.sumOfNumbers }</p>
           <p>과거 기록에서 번호들의 합 (보너스 번호 제외)</p>
           <p>최소 &lt; 평균  &lt; 최대</p>
           <p>{ lottoSum.minimum } &lt; { lottoSum.average } &lt; { lottoSum.maximum }</p>
